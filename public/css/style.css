@@ -1141,3 +1141,45 @@ nav  li:hover > ul{
      .register-link p a:hover{
         text-decoration: underline;
      }
+
+     a:target {
+        scroll-behavior: smooth;
+    }
+
+  
+/* commments */
+.list_cmt, .cmt{
+    margin-left: 50px;
+}
+
+.comment,.form-group, .stars{
+    padding: 15px;
+}
+
+.form-group textarea {
+    width: 500px;
+}
+
+.btn_cmt{
+    padding: 8px 20px;
+    border: 2px solid #089da1;
+    text-decoration: none;
+    color: #000;
+}
+
+
+input[type=submit] {
+  background-color: #04AA6D;
+  border: 5px solid;
+  color: white;
+  padding:10px;
+  padding-bottom: 25px;
+  text-decoration: none;
+
+  cursor: pointer;
+  height: 20px;
+}
+
+.ip_search{
+    height: 30px;
+}

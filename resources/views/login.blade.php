@@ -2,17 +2,18 @@
 @section('content')
 <div class="body-login">
     <div class="wrapper">
-        <form action="">
+        <form action="" method="POST">
+        @csrf
             <h1>Đăng Nhập</h1>
             <div class="input-box">
                 <label class="text-title">Email</label>
-                <input type="text" placeholder="Nhập Email" >
+                <input type="text" placeholder="Nhập Email" name="email">
                 <i class="bx bxs-user"></i>
             </div>
 
             <div class="input-box">
                 <label class="text-title">Password</label>
-                <input type="password" placeholder="Nhập Mật Khẩu" >
+                <input type="password" placeholder="Nhập Mật Khẩu" name="password">
                 <i class="bx bxs-lock-alt"></i>
             </div>
 

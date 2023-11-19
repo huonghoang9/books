@@ -46,6 +46,10 @@
                     <td>{{$book->describe}}</td>
                     <td>{{$book->producer_name}}</td>
                     <td>{{$book->author_name}}</td>
+                    <td>
+                        <a class="btn btn-success" role="button" href="{{route('edit_book',['id'=>$book->id])}}">Sửa</a>
+                        <a class="btn btn-danger" role="button" href="{{route('delete_book',['id'=>$book->id])}}">Xóa</a>
+                    </td>
                     <td></td>
                 </tr>
             </tbody>

@@ -8,7 +8,10 @@ use App\Models\Category;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBSITE BÁN SÁCH</title>
+    <link rel="stylesheet" href="{{asset('node_modules/starrr/dist/starrr.min.css')}}">
+    <script src="{{asset('node_modules/starrr/dist/starrr.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -29,19 +32,20 @@ use App\Models\Category;
                 @endforeach
             </ul>
 
-            <!-- <script>
-            function handleCategoryClick(element) {
-            // Điều hướng đến trang chứa sản phẩm của danh mục đó
-            window.location.href = `/products/${element.getAttribute("data-category-id")}`;
-            }
-            </script> -->
+           
             </li>
             <li><a href="#Blog">Liên Hệ</a></li>
         </ul>
 
+        <form action="{{route('search-book')}}" method="POST">
+        @csrf
+        <input type="text" name="searchBook" class="ip_search">
+        <input type="submit" value="Search" name="btnSend">
+         </form>
         <div class="social_icon">
+            
              <a href="{{route('login')}}">  <i class="fa-solid fa-user"></i></i></a>
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <a href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i></a>
            <a href="{{route('cart')}}"> <i class="fa-solid fa-cart-shopping"></i></a>
 
         </div>
@@ -51,8 +55,13 @@ use App\Models\Category;
     <div class="main">
 
         <div class="main_tag">
-            <h1>Chào Mừng Bạn Đã Đến Với <br><span>2H BOOKS</span></h1>
-
+            <h1>Chào Mừng 
+                @if(Auth::check())
+               {{ Auth::user()->name}}
+               @else
+               <a href="route('login')"></a>
+                @endif
+                Đã Đến Với <br><span>2H BOOKS</span></h1>
             <p>
                 Trang bán sách chính thống, uy tín, luôn cập nhật các mẫu sách mới nhất trên thị trường, đa dạng thể loại, phù hợp với nhiều lứa tuổi, giá cả hợp lý ...
             </p>

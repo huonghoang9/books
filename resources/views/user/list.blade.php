@@ -22,7 +22,7 @@
                 <td>{{$user->birthday}}</td>
                 <td>{{$user->role== 0? 'admin': 'khách'}}</td>
                 <td>
-                    <a class="btn btn-primary" role="button" href="{{route('edit_user',['id'=>$user->id])}}">Sửa</a>
+                    <a class="btn btn-success" role="button" href="{{route('edit_user',['id'=>$user->id])}}">Sửa</a>
                     <a class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa thông tin người dùng này không ?')" href="{{route('delete_user',['id'=>$user->id])}}" role="button">Xóa</a></td>
             </tr>
         @endforeach

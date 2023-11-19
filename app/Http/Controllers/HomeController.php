@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Book;
 use App\Models\Category;
 use Cart;
@@ -25,8 +23,18 @@ class HomeController extends Controller
             $book->author = $book->author()->first();
             $book->producer = $book->producer()->first();
         }
-        // Trả về danh sách top 10 sách theo rating.
-        return view('home',  compact('top10Books'));
+
+        // Lấy keyword từ request.
+    $keyword = $request->get('keyword');
+
+    // Lọc danh sách sách theo keyword.
+    if($request->post() && $request->searchBook ){
+        $books = DB::table('books') ->join('authors', 'books.author_id', '=', 'authors.id')
+            ->where('book_name', 'like', '%'.$request->searchBook.'%')
+            ->get();
+              }
+        //Trả về danh sách top 10 sách theo rating.
+        return view('home',  compact('top10Books','books'));
     }
 
     public function product_cate($categoryId){
@@ -44,26 +52,6 @@ class HomeController extends Controller
         ->where('cate_id', $detailBook->cate_id)
         ->get();
         return view('detail', compact('detailBook','similarBook','categories'));
-    }
-
-    public function cart(Request $request){
-        $bookID = $request->bookID_hidden;
-        $quantity = $request->quantityBook;
-        $book = DB::table('books')->where('id', $bookID)->first();
-       
-        $data['id'] = $bookID;
-        $data['qty'] = $quantity;
-        session(['quantity_' . $bookID => $quantity]);
-        $data['name'] = $book->book_name;
-        $data['price'] = $book->promotion_price;
-        $data['weight'] = '1';
-        $data['image'] = $book->image;
-        if($request->isMethod('POST')){
-            Cart::add($data);
-        }
-      
-        //  Cart::destroy();
-        return view('cart');
     }
 
     public function delete_cart($rowID){

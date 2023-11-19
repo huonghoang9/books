@@ -10,6 +10,7 @@ use App\Models\Producer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -61,5 +62,39 @@ class BookController extends Controller
             }
         }
         return view('book.add');
+    }
+
+    public function edit(Request $request, $id){
+        
+        $book = DB::table('books')->where('id', $id)->first();
+        if($request->isMethod('POST')){
+            $params = $request->except('_token');
+            if($request->hasFile('image') && $request->file('image')->isValid()){
+    
+                $resultDL = Storage::delete('/public/'.$book->image);
+                if($resultDL){
+                    $request->image = uploadFile('images', $request->file('image'));
+                    $params['image'] =  $request->image;
+                }
+            }else{
+    
+                $params['image'] = $book->image;
+            }
+            $result = Book::where('id', $id)->update($params);
+            if($result){
+                Session::flash('success', 'Sửa sách thành công');
+                return redirect()->route('edit_book', ['id'=>$id]);
+            }
+    
+        }
+        return view('book.edit', compact('book'));
+    }
+
+    public function delete(Request $request, $id){
+        $bookDL = Book::where('id', $id)->delete();
+        if($bookDL){
+            Session::flash('success', 'Xóa sách thành công');
+            return redirect()->route('list_book');
+        }
     }
 }

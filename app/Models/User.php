@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash; // Thêm dòng này để sử dụng facade Hash
 
 class User extends Authenticatable
 {
@@ -46,8 +47,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        // Xóa dòng này vì không có cast hashed
+        // 'password' => 'hashed',
     ];
 
-
+    // Thêm một phương thức mutator để băm mật khẩu khi đặt nó trên model
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }

@@ -19,7 +19,7 @@
                 <td>{{$review->book_name}}</td>
                 <td>{{$review->name}}</td>
                 <td>{{$review->comment}}</td>
-                <td>{{$review->rate}}</td>
+                <td>{{$review->rating}}</td>
                 <td>
                     <a class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn bình luận này không?')" role="button" href="{{route('delete_review',['id'=>$review->id])}}">Xóa</a>
                 </td>
